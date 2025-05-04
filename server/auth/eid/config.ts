@@ -4,10 +4,10 @@ export const eidConfig = {
   clientId: config.EID_CLIENT_ID,
   clientSecret: config.EID_CLIENT_SECRET,
   redirectUri: config.EID_REDIRECT_URI,
-  authUrl: 'https://innskraning.island.is/oauth2/authorize',
-  tokenUrl: 'https://innskraning.island.is/oauth2/token',
-  userInfoUrl: 'https://innskraning.island.is/oauth2/userinfo',
-  scopes: ['openid', 'profile', 'nationalId'],
+  authUrl: 'https://api.signicat.com/oauth/authorize',
+  tokenUrl: 'https://api.signicat.com/oauth/token',
+  userInfoUrl: 'https://api.signicat.com/oauth/userinfo',
+  scopes: ['openid', 'profile', 'nationalId']
 };
 
 export default eidConfig; 

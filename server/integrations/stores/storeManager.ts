@@ -15,10 +15,10 @@ export interface Product {
   storeId: string;
 }
 
-class StoreManager {
+export class StoreManager {
   private stores: Map<string, Store> = new Map();
 
-  registerStore(store: Store) {
+  registerStore(store: Store): void {
     this.stores.set(store.id, store);
   }
 
@@ -28,9 +28,14 @@ class StoreManager {
       throw new Error(`Store ${storeId} not found`);
     }
 
-    // TODO: Implement actual store API integration
-    console.log(`Searching products in ${store.name} for query: ${query}`);
-    return [];
+    try {
+      // TODO: Implement actual store API integration
+      console.log(`Searching products in ${store.name} for query: ${query}`);
+      return [];
+    } catch (error) {
+      console.error(`Error searching products in ${store.name}:`, error);
+      throw error;
+    }
   }
 
   async getProductPrice(storeId: string, productId: string): Promise<number> {
@@ -39,10 +44,13 @@ class StoreManager {
       throw new Error(`Store ${storeId} not found`);
     }
 
-    // TODO: Implement actual store API integration
-    console.log(`Getting price for product ${productId} in ${store.name}`);
-    return 0;
+    try {
+      // TODO: Implement actual store API integration
+      console.log(`Getting price for product ${productId} in ${store.name}`);
+      return 0;
+    } catch (error) {
+      console.error(`Error getting product price in ${store.name}:`, error);
+      throw error;
+    }
   }
-}
-
-export const storeManager = new StoreManager(); 
+} 

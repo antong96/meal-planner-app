@@ -1,46 +1,57 @@
-import { RecipeSuggestion } from './openai';
+import { Recipe } from './storage';
 
-export const mockRecipes: RecipeSuggestion[] = [
+export const mockRecipes: Recipe[] = [
   {
-    title: 'Vegetable Stir Fry',
+    id: '1',
+    title: 'Pasta Carbonara',
+    description: 'Classic Italian pasta dish with eggs, cheese, pancetta, and black pepper',
     ingredients: [
-      '2 cups mixed vegetables',
-      '1 tbsp soy sauce',
-      '1 tbsp olive oil',
-      '2 cloves garlic',
-      '1 tsp ginger',
+      '400g spaghetti',
+      '200g pancetta',
+      '4 large eggs',
+      '100g pecorino cheese',
+      '50g parmesan',
+      'Black pepper',
+      'Salt'
     ],
     instructions: [
-      'Heat oil in a pan',
-      'Add garlic and ginger',
-      'Add vegetables and stir fry',
-      'Add soy sauce',
-      'Cook for 5 minutes',
+      'Cook pasta according to package instructions',
+      'Fry pancetta until crispy',
+      'Beat eggs with grated cheese and pepper',
+      'Drain pasta, mix with pancetta and egg mixture',
+      'Serve immediately with extra cheese and pepper'
     ],
     prepTime: 10,
     cookTime: 15,
-    servings: 2,
+    servings: 4,
+    tags: ['italian', 'pasta', 'quick']
   },
   {
-    title: 'Chicken Pasta',
+    id: '2',
+    title: 'Chicken Curry',
+    description: 'Spicy Indian-style chicken curry with coconut milk',
     ingredients: [
-      '200g pasta',
-      '1 chicken breast',
-      '1 cup tomato sauce',
-      '1 tbsp olive oil',
-      'Salt and pepper',
+      '500g chicken breast',
+      '1 onion',
+      '2 garlic cloves',
+      '1 tbsp curry powder',
+      '400ml coconut milk',
+      '2 tbsp vegetable oil',
+      'Fresh coriander'
     ],
     instructions: [
-      'Cook pasta according to package',
-      'Cook chicken in oil',
-      'Add tomato sauce',
-      'Combine with pasta',
-      'Season to taste',
+      'Dice chicken and vegetables',
+      'Fry onion and garlic until soft',
+      'Add chicken and cook until browned',
+      'Stir in curry powder and coconut milk',
+      'Simmer for 20 minutes',
+      'Garnish with coriander'
     ],
     prepTime: 15,
-    cookTime: 20,
-    servings: 2,
-  },
+    cookTime: 25,
+    servings: 4,
+    tags: ['indian', 'curry', 'chicken']
+  }
 ];
 
 export const mockMealPlan = {
