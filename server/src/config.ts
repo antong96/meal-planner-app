@@ -19,15 +19,6 @@ const envSchema = z.object({
   // Authentication
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.string().default('7d'),
-
-  // eID (Signicat)
-  EID_CLIENT_ID: z.string(),
-  EID_CLIENT_SECRET: z.string(),
-  EID_REDIRECT_URI: z.string(),
-
-  // Payment (QuadraPay/Valitor)
-  QUADRAPAY_API_KEY: z.string(),
-  QUADRAPAY_MERCHANT_ID: z.string(),
 });
 
 export const config = envSchema.parse(process.env);
