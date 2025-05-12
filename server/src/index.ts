@@ -13,7 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize database
-initDatabase().catch(console.error);
+if (process.env.NODE_ENV !== 'production') {
+  initDatabase().catch(console.error);
+}
 
 // Routes
 app.use('/api/meal-plan', authMiddleware, mealPlanRoutes);
