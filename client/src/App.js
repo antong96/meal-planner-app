@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import MealPlanner from './components/MealPlanner';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +41,7 @@ function App() {
       <main>
         <section className="meal-planner">
           <h2>Mataræðisáætlun</h2>
-          <p>Hér kemur mataræðisáætlun þín</p>
+          <MealPlanner />
         </section>
 
         <section className="recipes">

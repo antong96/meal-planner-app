@@ -96,3 +96,64 @@ section h2 {
     grid-template-columns: 1fr;
   }
 }
+
+.meal-planner-container {
+  padding: 20px;
+}
+
+.add-meal-form {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.add-meal-form h3 {
+  margin-top: 0;
+  color: #4CAF50;
+}
+
+.add-meal-form select,
+.add-meal-form input {
+  margin: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.add-meal-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.add-meal-form button:hover {
+  background-color: #45a049;
+}
+
+.meal-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.meal-list th,
+.meal-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.meal-list th {
+  background-color: #f5f5f5;
+  color: #4CAF50;
+}
+
+.meal-list tr:hover {
+  background-color: #f9f9f9;
+}
