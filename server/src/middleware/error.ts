@@ -13,15 +13,9 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error(err);
-
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
-      error: err.message,
-    });
-  }
-
-  return res.status(500).json({
-    error: 'Internal server error',
+  console.error(err.stack);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 }; 

@@ -1,94 +1,22 @@
-import express from 'express';
-import { getMealPlan, saveMealPlan, updateMealPlan } from '../storage';
-import { getRecipeSuggestions } from '../openai';
+import { Router } from 'express';
+import { MealPlanController } from '../controllers/meal-plan';
 
-const router = express.Router();
+const router = Router();
+const mealPlanController = new MealPlanController();
 
-// Get meal plan for current user
-router.get('/', async (req, res) => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+// Get all meal plans for the authenticated user
+router.get('/', mealPlanController.getAll);
 
-    const mealPlan = await getMealPlan(userId);
-    if (!mealPlan) {
-      return res.status(404).json({ error: 'Meal plan not found' });
-    }
+// Get a specific meal plan by ID
+router.get('/:id', mealPlanController.getById);
 
-    res.json(mealPlan);
-  } catch (error) {
-    console.error('Error getting meal plan:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+// Create a new meal plan
+router.post('/', mealPlanController.create);
 
-// Create new meal plan
-router.post('/', async (req, res) => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+// Update a meal plan
+router.put('/:id', mealPlanController.update);
 
-    const mealPlan = await saveMealPlan({
-      userId,
-      recipes: [],
-      startDate: req.body.startDate,
-      endDate: req.body.endDate
-    });
-
-    if (!mealPlan) {
-      return res.status(500).json({ error: 'Failed to create meal plan' });
-    }
-
-    res.status(201).json(mealPlan);
-  } catch (error) {
-    console.error('Error creating meal plan:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Update meal plan
-router.put('/:id', async (req, res) => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    const mealPlan = await updateMealPlan(req.params.id, {
-      recipes: req.body.recipes,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate
-    });
-
-    if (!mealPlan) {
-      return res.status(404).json({ error: 'Meal plan not found' });
-    }
-
-    res.json(mealPlan);
-  } catch (error) {
-    console.error('Error updating meal plan:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Get recipe suggestions
-router.post('/suggestions', async (req, res) => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    const suggestions = await getRecipeSuggestions(req.body.preferences);
-    res.json(suggestions);
-  } catch (error) {
-    console.error('Error getting recipe suggestions:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+// Delete a meal plan
+router.delete('/:id', mealPlanController.delete);
 
 export default router; 

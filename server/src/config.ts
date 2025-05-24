@@ -9,18 +9,18 @@ const envSchema = z.object({
   PORT: z.string().default('3000'),
 
   // Database
-  DATABASE_URL: z.string(),
-  SUPABASE_URL: z.string(),
-  SUPABASE_KEY: z.string(),
-
-  // OpenAI
-  OPENAI_API_KEY: z.string(),
+  DATABASE_URL: z.string().default('mongodb://localhost:27017/meal-planner'),
 
   // Authentication
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z.string().default('your-secret-key'),
   JWT_EXPIRES_IN: z.string().default('7d'),
 });
 
-export const config = envSchema.parse(process.env);
+export const config = {
+  port: process.env.PORT || 3000,
+  nodeEnv: process.env.NODE_ENV || 'development',
+  jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
+  databaseUrl: process.env.DATABASE_URL || 'mongodb://localhost:27017/meal-planner'
+};
 
 export default config; 

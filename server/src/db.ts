@@ -1,31 +1,29 @@
-import { createClient } from '@supabase/supabase-js';
+import { MongoClient } from 'mongodb';
 import { config } from './config';
 
-export const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_KEY);
+let client: MongoClient;
 
-// Initialize database tables if they don't exist
-export const initDatabase = async () => {
+export async function initDatabase() {
   try {
-    // Create users table
-    const { error: usersError } = await supabase.rpc('create_users_table');
-    if (usersError) {
-      console.error('Error creating users table:', usersError);
-    }
-
-    // Create recipes table
-    const { error: recipesError } = await supabase.rpc('create_recipes_table');
-    if (recipesError) {
-      console.error('Error creating recipes table:', recipesError);
-    }
-
-    // Create meal_plans table
-    const { error: mealPlansError } = await supabase.rpc('create_meal_plans_table');
-    if (mealPlansError) {
-      console.error('Error creating meal_plans table:', mealPlansError);
-    }
-
-    console.log('Database initialization complete');
+    client = new MongoClient(config.databaseUrl);
+    await client.connect();
+    console.log('Connected to MongoDB');
   } catch (error) {
-    console.error('Error initializing database:', error);
+    console.error('Error connecting to MongoDB:', error);
+    throw error;
   }
-}; 
+}
+
+export function getDb() {
+  if (!client) {
+    throw new Error('Database not initialized');
+  }
+  return client.db();
+}
+
+export async function closeDatabase() {
+  if (client) {
+    await client.close();
+    console.log('Disconnected from MongoDB');
+  }
+} 
