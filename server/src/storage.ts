@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { config } from './config';
 import { mockRecipes } from './mockData';
 
-const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_KEY);
+const supabase = createClient(config.supabaseUrl, config.supabaseKey);
 
 export interface Recipe {
   id: string;

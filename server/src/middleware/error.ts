@@ -9,12 +9,20 @@ export class AppError extends Error {
 
 export const errorHandler = (
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   console.error(err.stack);
-  res.status(500).json({
+
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      error: err.name,
+      message: err.message
+    });
+  }
+
+  return res.status(500).json({
     error: 'Internal Server Error',
     message: process.env.NODE_ENV === 'development' ? err.message : undefined
   });

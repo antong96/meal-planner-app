@@ -14,13 +14,25 @@ const envSchema = z.object({
   // Authentication
   JWT_SECRET: z.string().default('your-secret-key'),
   JWT_EXPIRES_IN: z.string().default('7d'),
+
+  // OpenAI
+  OPENAI_API_KEY: z.string(),
+
+  // Supabase
+  SUPABASE_URL: z.string(),
+  SUPABASE_KEY: z.string(),
 });
 
+const env = envSchema.parse(process.env);
+
 export const config = {
-  port: process.env.PORT || 3000,
-  nodeEnv: process.env.NODE_ENV || 'development',
-  jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
-  databaseUrl: process.env.DATABASE_URL || 'mongodb://localhost:27017/meal-planner'
+  port: env.PORT,
+  nodeEnv: env.NODE_ENV,
+  jwtSecret: env.JWT_SECRET,
+  databaseUrl: env.DATABASE_URL,
+  openaiApiKey: env.OPENAI_API_KEY,
+  supabaseUrl: env.SUPABASE_URL,
+  supabaseKey: env.SUPABASE_KEY,
 };
 
 export default config; 

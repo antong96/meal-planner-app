@@ -1,6 +1,7 @@
 import { MealPlan } from '../models/meal-plan';
 import { getDb } from '../db';
 import { v4 as uuidv4 } from 'uuid';
+import { WithId } from 'mongodb';
 
 export class MealPlanRepository {
   private collection = getDb().collection<MealPlan>('meal-plans');
@@ -40,7 +41,12 @@ export class MealPlanRepository {
       { returnDocument: 'after' }
     );
 
-    return result.value;
+    if (!result) {
+      return null;
+    }
+
+    const updatedMealPlan = result as unknown as WithId<MealPlan>;
+    return updatedMealPlan;
   }
 
   async delete(id: string): Promise<boolean> {

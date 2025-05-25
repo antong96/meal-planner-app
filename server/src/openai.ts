@@ -3,7 +3,7 @@ import { config } from './config';
 import { Recipe } from './storage';
 
 const openai = new OpenAI({
-  apiKey: config.OPENAI_API_KEY,
+  apiKey: config.openaiApiKey,
 });
 
 export interface UserPreferences {

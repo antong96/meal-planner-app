@@ -8,11 +8,12 @@ export class MealPlanController {
     this.mealPlanService = new MealPlanService();
   }
 
-  getAll = async (req: Request, res: Response) => {
+  getAll = async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = req.user?.id;
       if (!userId) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
       }
 
       const mealPlans = await this.mealPlanService.getAll(userId);
@@ -23,16 +24,18 @@ export class MealPlanController {
     }
   };
 
-  getById = async (req: Request, res: Response) => {
+  getById = async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = req.user?.id;
       if (!userId) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
       }
 
       const mealPlan = await this.mealPlanService.getById(req.params.id, userId);
       if (!mealPlan) {
-        return res.status(404).json({ error: 'Meal plan not found' });
+        res.status(404).json({ error: 'Meal plan not found' });
+        return;
       }
 
       res.json(mealPlan);
@@ -42,11 +45,12 @@ export class MealPlanController {
     }
   };
 
-  create = async (req: Request, res: Response) => {
+  create = async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = req.user?.id;
       if (!userId) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
       }
 
       const mealPlan = await this.mealPlanService.create({
@@ -61,16 +65,18 @@ export class MealPlanController {
     }
   };
 
-  update = async (req: Request, res: Response) => {
+  update = async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = req.user?.id;
       if (!userId) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
       }
 
       const mealPlan = await this.mealPlanService.update(req.params.id, userId, req.body);
       if (!mealPlan) {
-        return res.status(404).json({ error: 'Meal plan not found' });
+        res.status(404).json({ error: 'Meal plan not found' });
+        return;
       }
 
       res.json(mealPlan);
@@ -80,16 +86,18 @@ export class MealPlanController {
     }
   };
 
-  delete = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response): Promise<void> => {
     try {
       const userId = req.user?.id;
       if (!userId) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
       }
 
       const success = await this.mealPlanService.delete(req.params.id, userId);
       if (!success) {
-        return res.status(404).json({ error: 'Meal plan not found' });
+        res.status(404).json({ error: 'Meal plan not found' });
+        return;
       }
 
       res.status(204).send();

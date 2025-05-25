@@ -1,5 +1,3 @@
-import { config } from '../../config';
-
 export interface Store {
   id: string;
   name: string;
