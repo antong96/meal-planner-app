@@ -4,7 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { WithId } from 'mongodb';
 
 export class MealPlanRepository {
-  private collection = getDb().collection<MealPlan>('meal-plans');
+  private get collection() {
+    return getDb().collection<MealPlan>('meal-plans');
+  }
 
   async findByUserId(userId: string): Promise<MealPlan[]> {
     return this.collection.find({ userId }).toArray();
